@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Karriere | Plett Prüfgewichte</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+:root{
+  --navy:#18263a;
+  --navy2:#1f3149;
+  --steel:#2c4a6e;
+  --amber:#e8991a;
+  --amber2:#f5ac2e;
+  --light:#f2f4f8;
+  --border:#d4dae6;
+  --muted:#5f6e84;
+  --white:#ffffff;
+  --text:#18263a;
+}
+body{font-family:'Barlow',sans-serif;color:var(--text);background:var(--white);line-height:1.6}
+
+/* ---- NAV ---- */
+nav{
+  position:fixed;top:0;width:100%;z-index:1000;
+  background:var(--navy);
+  border-bottom:3px solid var(--amber);
+  padding:0 5%;
+  display:flex;align-items:center;justify-content:space-between;
+  height:62px;
+}
+.nav-logo{
+  font-family:'Barlow Condensed',sans-serif;
+  font-weight:800;font-size:21px;
+  color:var(--white);text-decoration:none;letter-spacing:.3px;
+}
+.nav-logo em{color:var(--amber);font-style:normal}
+.nav-links{display:flex;gap:24px;list-style:none;align-items:center}
+.nav-links a{
+  color:rgba(255,255,255,.78);text-decoration:none;
+  font-size:14px;font-weight:500;letter-spacing:.2px;
+  transition:color .18s;
+}
+.nav-links a:hover{color:var(--amber)}
+.nav-cta{
+  background:var(--amber)!important;
+  color:var(--navy)!important;font-weight:700!important;
+  padding:8px 18px;border-radius:2px;
+}
+.nav-cta:hover{background:var(--amber2)!important}
+
+/* ---- SECTION ---- */
+section{padding:120px 5% 80px 5%}
+.si{max-width:1180px;margin:0 auto}
+.slabel{
+  font-size:11px;font-weight:700;letter-spacing:2px;
+  text-transform:uppercase;color:var(--amber);margin-bottom:11px;
+}
+.stitle{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:42px;font-weight:800;line-height:1.08;margin-bottom:13px;
+}
+.ssub{font-size:16.5px;color:var(--muted);max-width:580px;line-height:1.65}
+
+/* ---- JOBS ---- */
+.jobs-bg{background:var(--white)}
+.jcard{
+  background:var(--white);border:2px solid var(--navy);
+  border-radius:4px;overflow:hidden;margin-top:40px;
+}
+.jhead{
+  background:var(--navy);padding:26px 36px;
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:14px;
+}
+.jhead h3{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:28px;font-weight:800;color:var(--white);
+}
+.jbadges{display:flex;gap:10px;flex-wrap:wrap}
+.jbadge{
+  font-family:'Barlow Condensed',sans-serif;
+  font-weight:800;font-size:14px;padding:6px 16px;border-radius:2px;
+}
+.jbadge.prime{background:var(--amber);color:var(--navy)}
+.jbadge.ghost{background:rgba(255,255,255,.15);color:rgba(255,255,255,.85)}
+.jbody{padding:36px;display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.jcol h4{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:19px;font-weight:700;margin-bottom:14px;color:var(--navy);
+}
+.jlist{list-style:none;display:flex;flex-direction:column;gap:10px}
+.jlist li{
+  display:flex;gap:9px;font-size:14.5px;color:var(--text);
+  align-items:flex-start;
+}
+.jlist li::before{content:'▸';color:var(--amber);font-size:11px;margin-top:4px;flex-shrink:0}
+.jcta{
+  margin-top:22px;display:inline-flex;align-items:center;gap:9px;
+  background:var(--amber);color:var(--navy);text-decoration:none;
+  font-weight:700;font-size:14.5px;padding:12px 24px;border-radius:2px;
+  transition:all .16s;
+}
+.jcta:hover{background:var(--amber2);transform:translateY(-1px)}
+
+/* ---- FOOTER ---- */
+footer{background:#0f1b28;padding:30px 5%;margin-top:60px;}
+.fi{
+  max-width:1180px;margin:0 auto;
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:14px;
+}
+.flogo{
+  font-family:'Barlow Condensed',sans-serif;
+  font-weight:800;font-size:19px;color:var(--white);
+}
+.flogo em{color:var(--amber);font-style:normal}
+.fcopy{color:rgba(255,255,255,.35);font-size:13px}
+.flinks{display:flex;gap:20px}
+.flinks a{color:rgba(255,255,255,.35);text-decoration:none;font-size:13px}
+.flinks a:hover{color:var(--amber)}
+
+@media(max-width:960px){
+  .jbody{grid-template-columns:1fr}
+  nav{padding:0 5%}
+  .nav-links li:not(:last-child){display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+  <a href="index.html" class="nav-logo">Plett<em>Prüfgewichte</em></a>
+  <ul class="nav-links">
+    <li><a href="index.html#leistungen">Leistungen</a></li>
+    <li><a href="index.html#liefergebiet">Liefergebiet</a></li>
+    <li><a href="jobs.html" style="color:var(--amber)">Jobs</a></li>
+    <li><a href="index.html#kontakt" class="nav-cta">Jetzt anfragen</a></li>
+  </ul>
+</nav>
+
+<!-- JOBS SECTION -->
+<section class="jobs-bg" id="jobs">
+  <div class="si">
+    <div class="slabel">Karriere</div>
+    <h2 class="stitle">Wir suchen Verstärkung</h2>
+    <p class="ssub">Auf Minijob-Basis, flexibel und abrufbereit. Ideal für Menschen mit variablem Zeitplan.</p>
+    <div class="jcard">
+      <div class="jhead">
+        <h3>Fahrer & Lader (m/w/d) – Gewichtstransport</h3>
+        <div class="jbadges">
+          <span class="jbadge prime">Minijob · 14 €/h</span>
+          <span class="jbadge ghost">Abrufbasis</span>
+          <span class="jbadge ghost">Sofort möglich</span>
+        </div>
+      </div>
+      <div class="jbody">
+        <div class="jcol">
+          <h4>Was Sie erwartet</h4>
+          <ul class="jlist">
+            <li>Auf- und Abladen von Prüfgewichten via elektrischem Seilzug (keine Schwerstarbeit)</li>
+            <li>Begleitung zum Prüfort und Unterstützung bei der Positionierung im Aufzug</li>
+            <li>Enge Zusammenarbeit mit TÜV-Prüfer und Aufzugsmonteur</li>
+            <li>Klar abgegrenzte Einsätze – keine bürokratischen Aufgaben</li>
+            <li>Kurze, planbare Arbeitseinsätze ohne Schreibtischarbeit</li>
+          </ul>
+        </div>
+        <div class="jcol">
+          <h4>Was wir bieten & wen wir suchen</h4>
+          <ul class="jlist">
+            <li>Minijob-Vergütung: <strong>14 €/h</strong></li>
+            <li>Einsätze nach Auftragslage – kein fester Stundenplan</li>
+            <li>Spontane und kurzfristige Einsätze möglich und erwünscht</li>
+            <li>Besonders geeignet für Personen mit variablem Zeitplan</li>
+            <li>Körperliche Voraussetzungen überschaubar dank Seilzuganlage</li>
+            <li>Führerschein Klasse B (PKW) erforderlich</li>
+          </ul>
+          <a href="mailto:andrejplett@gmx.de?subject=Bewerbung Minijob Gewichtstransport" class="jcta">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            Jetzt bewerben
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="fi">
+    <div class="flogo">Plett<em>Prüfgewichte</em></div>
+    <div class="fcopy">© 2025 · andrejplett@gmx.de · 0171 271 72 90</div>
+    <div class="flinks">
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
