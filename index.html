@@ -571,7 +571,7 @@ document.addEventListener("DOMContentLoaded", function() {
   // Initialisiere die Karte mit Zoomlevel 6 (zeigt gut ganz Deutschland)
   var map = L.map('map', {
     scrollWheelZoom: false // Verhindert, dass man beim Scrollen der Website in der Karte hängen bleibt
-  }).setView(osnabrueck, 6);
+  }).setView(osnabrueck, 7);
 
   // Füge die OpenStreetMap Karten-Kacheln hinzu
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -588,7 +588,7 @@ document.addEventListener("DOMContentLoaded", function() {
     color: '#e8991a',
     fillColor: '#e8991a',
     fillOpacity: 0.15,
-    radius: 400000 // Radius in Metern (hier 400 km)
+    radius: 250000 // Radius in Metern (hier 400 km)
   }).addTo(map);
 });
 </script>
