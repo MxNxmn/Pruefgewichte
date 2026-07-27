@@ -473,49 +473,59 @@ footer{background:#0f1b28;padding:30px 5%}
         </div>
       </div>
 
-      <div class="cform" id="kontaktformular">
+      <form class="cform" id="kontaktformular">
         <h3>Anfrage senden</h3>
+        
+        <!-- Web3Forms Konfiguration -->
+        <input type="hidden" name="access_key" value="a4d6a175-1463-4f42-81d5-0bb2b546d879">
+        <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+        <input type="hidden" name="subject" value="Neue Anfrage über Plett Prüfgewichte">
+
         <div class="fgrid">
           <div class="frow">
             <label class="flabel">Vorname</label>
-            <input type="text" class="fin" id="f-vorname" placeholder="Max">
+            <input type="text" class="fin" name="Vorname" placeholder="Max" required>
           </div>
           <div class="frow">
             <label class="flabel">Nachname</label>
-            <input type="text" class="fin" id="f-nachname" placeholder="Mustermann">
+            <input type="text" class="fin" name="Nachname" placeholder="Mustermann" required>
           </div>
         </div>
         <div class="frow">
           <label class="flabel">Firma</label>
-          <input type="text" class="fin" id="f-firma" placeholder="Muster Immobilien GmbH">
+          <input type="text" class="fin" name="Firma" placeholder="Muster Immobilien GmbH">
         </div>
         <div class="fgrid">
           <div class="frow">
             <label class="flabel">Telefon</label>
-            <input type="tel" class="fin" id="f-tel" placeholder="+49 ...">
+            <input type="tel" class="fin" name="Telefon" placeholder="+49 ..." required>
           </div>
           <div class="frow">
             <label class="flabel">E-Mail</label>
-            <input type="email" class="fin" id="f-email" placeholder="anfrage@firma.de">
+            <input type="email" class="fin" name="Email" placeholder="anfrage@firma.de" required>
           </div>
         </div>
         <div class="fgrid">
           <div class="frow">
             <label class="flabel">PLZ des Prüforts</label>
-            <input type="text" class="fin" id="f-plz" placeholder="PLZ" maxlength="5">
+            <input type="text" class="fin" name="PLZ" placeholder="PLZ" maxlength="5" required>
           </div>
           <div class="frow">
             <label class="flabel">Gewünschter Termin</label>
-            <input type="date" class="fin" id="f-termin">
+            <input type="date" class="fin" name="Termin">
           </div>
         </div>
         <div class="frow">
           <label class="flabel">Nachricht / Besonderheiten</label>
-          <textarea class="ftxt" id="f-msg" placeholder="Anzahl Aufzüge, Etagenanzahl, Zugangsinformationen, Sonderwünsche ..."></textarea>
+          <textarea class="ftxt" name="Nachricht" placeholder="Anzahl Aufzüge, Etagenanzahl, Zugangsinformationen, Sonderwünsche ..." required></textarea>
         </div>
-        <button class="fsub" onclick="submitForm()">ANFRAGE ABSENDEN →</button>
+        <button type="submit" id="submit-btn" class="fsub">ANFRAGE ABSENDEN →</button>
+        
+        <!-- Result Message Block -->
+        <div id="form-result" style="display: none; margin-top: 15px; padding: 12px; border-radius: 4px; text-align: center; font-size: 14.5px; font-weight: bold; font-family: 'Barlow', sans-serif;"></div>
+        
         <p class="ffoot">Ihre Daten werden ausschließlich zur Bearbeitung dieser Anfrage genutzt und nicht weitergegeben.</p>
-      </div>
+      </form>
     </div>
   </div>
 </section>
@@ -536,32 +546,64 @@ footer{background:#0f1b28;padding:30px 5%}
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
 <script>
-// --- Formular Skript ---
-function submitForm(){
-  var v=document.getElementById('f-vorname').value;
-  var n=document.getElementById('f-nachname').value;
-  var fi=document.getElementById('f-firma').value;
-  var t=document.getElementById('f-tel').value;
-  var e=document.getElementById('f-email').value;
-  var p=document.getElementById('f-plz').value;
-  var d=document.getElementById('f-termin').value;
-  var m=document.getElementById('f-msg').value;
+// --- Formular Skript (Web3Forms) ---
+const form = document.getElementById('kontaktformular');
+const result = document.getElementById('form-result');
+const submitBtn = document.getElementById('submit-btn');
 
-  var body='Neue Anfrage von PlettPruefgewichte.de\n\n'
-    +'Name: '+v+' '+n+'\n'
-    +'Firma: '+fi+'\n'
-    +'Telefon: '+t+'\n'
-    +'E-Mail: '+e+'\n'
-    +'PLZ Prüfort: '+p+'\n'
-    +'Gewünschter Termin: '+d+'\n\n'
-    +'Nachricht:\n'+m;
+form.addEventListener('submit', function(e) {
+  e.preventDefault(); 
 
-  var link='mailto:andrejplett@gmx.de'
-    +'?subject='+encodeURIComponent('Anfrage Prüfgewichte – '+fi+' (PLZ '+p+')')
-    +'&body='+encodeURIComponent(body);
+  const originalBtnText = submitBtn.innerHTML;
+  submitBtn.innerHTML = 'Wird gesendet... ⏳';
+  submitBtn.disabled = true;
+  submitBtn.style.opacity = '0.7';
 
-  window.location.href=link;
-}
+  const formData = new FormData(form);
+  const object = Object.fromEntries(formData);
+  const json = JSON.stringify(object);
+
+  fetch('https://api.web3forms.com/submit', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: json
+  })
+  .then(async (response) => {
+    let json = await response.json();
+    if (response.status == 200) {
+      result.style.display = 'block';
+      result.innerHTML = '✅ Vielen Dank! Ihre Anfrage wurde erfolgreich gesendet.';
+      result.style.backgroundColor = '#d4edda';
+      result.style.color = '#155724';
+      form.reset(); 
+    } else {
+      console.log(response);
+      result.style.display = 'block';
+      result.innerHTML = '❌ Fehler: ' + json.message;
+      result.style.backgroundColor = '#f8d7da';
+      result.style.color = '#721c24';
+    }
+  })
+  .catch(error => {
+    console.log(error);
+    result.style.display = 'block';
+    result.innerHTML = '❌ Es gab einen Fehler. Bitte überprüfen Sie Ihre Internetverbindung.';
+    result.style.backgroundColor = '#f8d7da';
+    result.style.color = '#721c24';
+  })
+  .then(function() {
+    submitBtn.innerHTML = originalBtnText;
+    submitBtn.disabled = false;
+    submitBtn.style.opacity = '1';
+    
+    setTimeout(() => {
+      result.style.display = 'none';
+    }, 6000);
+  });
+});
 
 // --- Karten Skript (Leaflet.js) ---
 document.addEventListener("DOMContentLoaded", function() {
